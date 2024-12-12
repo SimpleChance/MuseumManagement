@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programs - Museum Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Navigation Ribbon --->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('artifact_detail_page') }}">Artifacts</a></li>
+                <li><a href="{{ url_for('exhibits_page') }}">Exhibits</a></li>
+                <li><a href="{{ url_for('events_page') }}">Events</a></li>
+                <li><a href="{{ url_for('programs_page') }}">Programs</a></li>
+                <li><a href="{{ url_for('donate_page') }}">Donate</a></li>
+                <li><a href="{{ url_for('about_page') }}">About Us</a></li>
+                <li><a href="{{ url_for('login_page') }}">Login/Signup</a></li>
+                <li><a href="{{ url_for('virtual_tour_page') }}">Virtual Tour</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <h1>Programs</h1>
+        </section>
+
+        <!-- Programs Section -->
+        <section class="content-section">
+            <div class="grid">
+                {% for program in programs %}
+                <div class="card">
+                    <h2>{{ program.Name }}</h2>
+                    <p><strong>Description:</strong> {{ program.Description }}</p>
+                    <p><strong>Date:</strong> {{ program.Date }}</p>
+                    <p><strong>Age Group:</strong> {{ program.AgeGroup }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section --->
+    <footer>
+        <p>&copy; 2024 Museum Management System</p>
+        <p><a href="{{ url_for('about_page') }}">Contact Us</a> | Terms of Service | Privacy Policy</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

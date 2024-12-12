@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Tour - Museum Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Navigation Ribbon --->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('artifact_detail_page') }}">Artifacts</a></li>
+                <li><a href="{{ url_for('exhibits_page') }}">Exhibits</a></li>
+                <li><a href="{{ url_for('events_page') }}">Events</a></li>
+                <li><a href="{{ url_for('programs_page') }}">Programs</a></li>
+                <li><a href="{{ url_for('donate_page') }}">Donate</a></li>
+                <li><a href="{{ url_for('about_page') }}">About Us</a></li>
+                <li><a href="{{ url_for('login_page') }}">Login/Signup</a></li>
+                <li><a href="{{ url_for('virtual_tour_page') }}">Virtual Tour</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <h1>Virtual Tour</h1>
+        </section>
+
+        <!-- Virtual Tours Section -->
+        <section class="content-section">
+            <div class="grid">
+                {% for tour in virtual_tours %}
+                <div class="card">
+                    <h2>{{ tour.Name }}</h2>
+                    <p><strong>Description:</strong> {{ tour.Description }}</p>
+                    <p><a href="{{ tour.Link }}" target="_blank" class="button">Take the Tour</a></p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section --->
+    <footer>
+        <p>&copy; 2024 Museum Management System</p>
+        <p><a href="{{ url_for('about_page') }}">Contact Us</a> | Terms of Service | Privacy Policy</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

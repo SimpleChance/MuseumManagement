@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artifact Detail - Museum Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Navigation Ribbon --->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('artifact_detail_page') }}">Artifacts</a></li>
+                <li><a href="{{ url_for('exhibits_page') }}">Exhibits</a></li>
+                <li><a href="{{ url_for('events_page') }}">Events</a></li>
+                <li><a href="{{ url_for('programs_page') }}">Programs</a></li>
+                <li><a href="{{ url_for('donate_page') }}">Donate</a></li>
+                <li><a href="{{ url_for('about_page') }}">About Us</a></li>
+                <li><a href="{{ url_for('login_page') }}">Login/Signup</a></li>
+                <li><a href="{{ url_for('virtual_tour_page') }}">Virtual Tour</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <h1>Artifacts</h1>
+
+            <!-- Artifact Search and Filters -->
+            <div class="filter-search-container">
+                <!-- Filter Buttons -->
+                <div class="button-container">
+                    <a href="{{ url_for('artifact_detail_page') }}" class="button">All Artifacts</a>
+                    <a href="{{ url_for('filter_artifacts_by_type', artifact_type='FossilDinosaur') }}" class="button">Fossil Dinosaur</a>
+                    <a href="{{ url_for('filter_artifacts_by_type', artifact_type='FossilCenozoic') }}" class="button">Fossil Cenozoic</a>
+                    <a href="{{ url_for('filter_artifacts_by_type', artifact_type='FossilPreDinosaur') }}" class="button">Fossil Pre-Dinosaur</a>
+                    <a href="{{ url_for('filter_artifacts_by_type', artifact_type='HumanHistoric') }}" class="button">Human Historic</a>
+                    <a href="{{ url_for('filter_artifacts_by_type', artifact_type='HumanPrehistoric') }}" class="button">Human Prehistoric</a>
+                    <a href="{{ url_for('filter_artifacts_by_type', artifact_type='ExtraterrestrialSample') }}" class="button">Extraterrestrial Sample</a>
+                </div>
+
+                <!-- Search Bar -->
+                <form action="{{ url_for('search_artifacts') }}" method="get" id="artifact-search-form" class="search-form">
+                    <input type="text" name="q" placeholder="Search artifacts..." required class="input-field">
+                    <button type="submit" class="button">Search</button>
+                </form>
+            </div>
+
+        </section>
+
+        <!-- Artifacts Section -->
+        <section class="content-section">
+            {% if search_term %}
+                <p>Search Results for "{{ search_term }}":</p>
+            {% elif filter_type %}
+                <p>Filtered by Type: "{{ filter_type }}":</p>
+            {% endif %}
+
+            <div class="grid">
+                {% for artifact in artifacts %}
+                <div class="card">
+                    <h2>{{ artifact.Name }}</h2>
+                    <p><strong>Type:</strong> {{ artifact.Type }}</p>
+                    <p><strong>Expected Carbon Date:</strong> {{ artifact.ExpectedCarbonDate }}</p>
+                    <p><strong>Region of Origin:</strong> {{ artifact.RegionOfOrigin }}</p>
+                    <p><strong>Date of Discovery:</strong> {{ artifact.DateOfDiscovery }}</p>
+                    <p><strong>Condition:</strong> {{ artifact.ArtifactCondition }}</p>
+                    <p><strong>Display Section:</strong> {{ artifact.DisplaySection }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section --->
+    <footer>
+        <p>&copy; 2024 Museum Management System</p>
+        <p><a href="{{ url_for('about_page') }}">Contact Us</a> | Terms of Service | Privacy Policy</p>
+    </footer>
+</body>
+</html>

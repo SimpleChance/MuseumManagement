@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate - Museum Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Navigation Ribbon --->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('artifact_detail_page') }}">Artifacts</a></li>
+                <li><a href="{{ url_for('exhibits_page') }}">Exhibits</a></li>
+                <li><a href="{{ url_for('events_page') }}">Events</a></li>
+                <li><a href="{{ url_for('programs_page') }}">Programs</a></li>
+                <li><a href="{{ url_for('donate_page') }}">Donate</a></li>
+                <li><a href="{{ url_for('about_page') }}">About Us</a></li>
+                <li><a href="{{ url_for('login_page') }}">Login/Signup</a></li>
+                <li><a href="{{ url_for('virtual_tour_page') }}">Virtual Tour</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="content-section">
+            <h2>Select a Museum to Support</h2>
+            {% if museums %}
+            <!-- Museum Grid -->
+            <section class="museum-grid">
+                {% for museum in museums %}
+                <div class="card">
+                    <h3>{{ museum.Name }}</h3>
+                    <p>{{ museum.Description }}</p>
+                    <a href="{{ url_for('donate_page', museum_id=museum.MuseumID) }}" class="button">View Donations</a>
+                </div>
+                {% endfor %}
+            </section>
+            {% elif museum %}
+            <!-- Donation Details for Selected Museum -->
+            <section class="donation-info">
+                <h2>Support {{ museum.Name }}</h2>
+                <p>Location: {{ museum.Location }}</p>
+                <p>Total Donations: <strong>${{ total_donations }}</strong></p>
+            </section>
+
+            <!-- Donation Form -->
+            <section class="donation-form">
+                <h3>Donate to {{ museum.Name }}</h3>
+                <form action="{{ url_for('donate_page', museum_id=request.view_args['museum_id']) }}" method="POST">
+                    <label for="donor-name">Your Name:</label>
+                    <input type="text" id="donor-name" name="donor_name" required class="input-field">
+                    <label for="donation-amount">Donation Amount:</label>
+                    <input
+                        type="number"
+                        id="donation-amount"
+                        name="amount"
+                        step="0.01"
+                        min="0.01"
+                        required
+                        class="input-field"
+                    />
+                    <button type="submit" class="button">Donate Now</button>
+                </form>
+
+                <!-- Back to Museums button --->
+                <section class="content-section">
+                    <a href="{{ url_for('donate_page') }}" class="button">Back to Museums</a>
+                </section>
+            </section>
+            {% endif %}
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Museum Management System</p>
+        <p>
+            <a href="{{ url_for('about_page') }}">Contact Us</a> |
+            Terms of Service |
+            Privacy Policy
+        </p>
+    </footer>
+</body>
+</html>

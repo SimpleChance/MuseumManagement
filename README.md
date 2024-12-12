@@ -25,8 +25,8 @@ This project focuses on designing and testing a relational database for managing
 ### **Setup Steps**
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/museum-management-system.git
-   cd museum-management-system
+   git clone https://github.com/Simple Chance/MuseumManagement.git
+   cd MuseumManagement
    ```
 
 2. Install dependencies:
